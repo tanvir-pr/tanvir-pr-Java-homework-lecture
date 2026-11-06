@@ -42,14 +42,14 @@ public class OandaProperties {
 
     private Map<String, String> readSecrets() {
         Map<String, String> map = new HashMap<>();
-        Path path = Path.of(tokenFile);
-        if (!Files.exists(path)) {
+        Path path = resolveTokenFile();
+        if (path == null || !Files.exists(path)) {
             return map;
         }
         try {
             List<String> lines = Files.readAllLines(path);
             for (String line : lines) {
-                String trimmed = line.trim();
+                String trimmed = stripBom(line).trim();
                 if (trimmed.isEmpty() || trimmed.startsWith("#") || !trimmed.contains("=")) {
                     continue;
                 }
@@ -60,5 +60,24 @@ public class OandaProperties {
             // Missing or unreadable secrets file — pages show a clear UI message.
         }
         return map;
+    }
+
+    private Path resolveTokenFile() {
+        Path configured = Path.of(tokenFile);
+        if (Files.exists(configured)) {
+            return configured.toAbsolutePath().normalize();
+        }
+        Path besideJar = Path.of(System.getProperty("user.dir", ".")).resolve(tokenFile);
+        if (Files.exists(besideJar)) {
+            return besideJar.toAbsolutePath().normalize();
+        }
+        return configured;
+    }
+
+    private String stripBom(String value) {
+        if (value != null && !value.isEmpty() && value.charAt(0) == '\uFEFF') {
+            return value.substring(1);
+        }
+        return value;
     }
 }
