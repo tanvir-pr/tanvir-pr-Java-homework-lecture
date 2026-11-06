@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::title}, ~{::main})}">
+<head>
+    <title>SOAP — MNB rates | Neumann Tech Solutions</title>
+</head>
+<body>
+<main>
+    <div class="container">
+        <h1 class="section-title">SOAP — Hungarian National Bank rates</h1>
+
+        <div class="card">
+            <form method="post" th:action="@{/soap}">
+                <div class="form-row">
+                    <div class="field">
+                        <label for="currency">Currency</label>
+                        <select id="currency" name="currency" required>
+                            <option th:each="c : ${currencies}"
+                                    th:value="${c}"
+                                    th:text="${c}"
+                                    th:selected="${#strings.equals(c, currency)}"></option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="startDate">Start date</label>
+                        <input type="date" id="startDate" name="startDate" th:value="${startDate}" required/>
+                    </div>
+                    <div class="field">
+                        <label for="endDate">End date</label>
+                        <input type="date" id="endDate" name="endDate" th:value="${endDate}" required/>
+                    </div>
+                    <div class="field">
+                        <button class="btn" type="submit">Load rates</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+        <div class="card" th:if="${rates != null and !rates.isEmpty()}">
+            <h2>Exchange rates</h2>
+            <table class="data">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Currency</th>
+                    <th>Unit</th>
+                    <th>Value (HUF)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="r : ${rates}">
+                    <td th:text="${r.date}">2024-01-01</td>
+                    <td th:text="${r.currency}">EUR</td>
+                    <td th:text="${r.unit}">1</td>
+                    <td th:text="${#numbers.formatDecimal(r.value, 1, 4)}">400.0000</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+</body>
+</html>

@@ -7,12 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MenuController {
 
-    @GetMapping("/soap")
-    public String soap(Model model) {
-        return placeholder(model, "soap", "SOAP — MNB rates",
-                "Hungarian National Bank SOAP client will be available here.");
-    }
-
     @GetMapping("/forex/account")
     public String forexAccount(Model model) {
         return placeholder(model, "forex-account", "Forex-account",
