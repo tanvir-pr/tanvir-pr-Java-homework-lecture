@@ -28,4 +28,4 @@ Free responsive HTML/CSS theme inspired by **HTML5 UP Massively** patterns
 
 ## GitHub
 
-https://github.com/tanvir-pr/Java-homework-lecture
+https://github.com/tanvir-pr/tanvir-pr-Java-homework-lecture

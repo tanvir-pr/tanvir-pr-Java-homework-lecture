@@ -7,18 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MenuController {
 
-    @GetMapping("/forex/histprice")
-    public String forexHistPrice(Model model) {
-        return placeholder(model, "forex-histprice", "Forex-HistPrice",
-                "Historical prices for the selected instrument and granularity.");
-    }
-
-    @GetMapping("/forex/open")
-    public String forexOpen(Model model) {
-        return placeholder(model, "forex-open", "Forex-Open",
-                "Open a long or short market position.");
-    }
-
     @GetMapping("/forex/pos")
     public String forexPos(Model model) {
         return placeholder(model, "forex-pos", "Forex-Pos",

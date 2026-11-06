@@ -17,3 +17,6 @@ node_modules/
 react-app/node_modules/
 react-app/dist/
 .cursor/
+_clean_commit.py
+_rewrite_commits.py
+_*.py

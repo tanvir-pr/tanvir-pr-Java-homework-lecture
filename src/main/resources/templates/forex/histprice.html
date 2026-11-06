@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::title}, ~{::main})}">
+<head>
+    <title>Forex-HistPrice | Neumann Tech Solutions</title>
+</head>
+<body>
+<main>
+    <div class="container">
+        <h1 class="section-title">Forex-HistPrice</h1>
+
+        <div class="card">
+            <form method="post" th:action="@{/forex/histprice}">
+                <div class="form-row">
+                    <div class="field">
+                        <label for="instrument">Instrument</label>
+                        <select id="instrument" name="instrument" required>
+                            <option th:each="i : ${instruments}"
+                                    th:value="${i}"
+                                    th:text="${i}"
+                                    th:selected="${#strings.equals(i, instrument)}"></option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="granularity">Granularity</label>
+                        <select id="granularity" name="granularity" required>
+                            <option th:each="g : ${granularities}"
+                                    th:value="${g}"
+                                    th:text="${g}"
+                                    th:selected="${#strings.equals(g, granularity)}"></option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <button class="btn" type="submit">Load last 10</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+        <div class="card" th:if="${candles != null and !candles.isEmpty()}">
+            <table class="data">
+                <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Open</th>
+                    <th>High</th>
+                    <th>Low</th>
+                    <th>Close</th>
+                    <th>Volume</th>
+                    <th>Complete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="c : ${candles}">
+                    <td th:text="${c['time']}">time</td>
+                    <td th:text="${c['open']}">o</td>
+                    <td th:text="${c['high']}">h</td>
+                    <td th:text="${c['low']}">l</td>
+                    <td th:text="${c['close']}">c</td>
+                    <td th:text="${c['volume']}">v</td>
+                    <td th:text="${c['complete']}">true</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+</body>
+</html>

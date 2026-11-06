@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::title}, ~{::main})}">
+<head>
+    <title>Forex-Open | Neumann Tech Solutions</title>
+</head>
+<body>
+<main>
+    <div class="container">
+        <h1 class="section-title">Forex-Open</h1>
+        <p>Positive quantity = Long, negative quantity = Short. Order is opened at market price.</p>
+
+        <div class="card">
+            <form method="post" th:action="@{/forex/open}">
+                <div class="form-row">
+                    <div class="field">
+                        <label for="instrument">Instrument</label>
+                        <select id="instrument" name="instrument" required>
+                            <option th:each="i : ${instruments}"
+                                    th:value="${i}"
+                                    th:text="${i}"
+                                    th:selected="${#strings.equals(i, instrument)}"></option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="units">Quantity</label>
+                        <input type="number" id="units" name="units" th:value="${units}" step="1" required/>
+                    </div>
+                    <div class="field">
+                        <button class="btn" type="submit">Open position</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+        <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+
+        <div class="card" th:if="${result != null}">
+            <table class="data">
+                <tbody>
+                <tr th:each="entry : ${result}">
+                    <th th:text="${entry.key}">key</th>
+                    <td th:text="${entry.value}">value</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+</body>
+</html>

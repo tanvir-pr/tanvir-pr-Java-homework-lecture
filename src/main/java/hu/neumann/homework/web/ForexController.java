@@ -55,10 +55,74 @@ public class ForexController {
         return "forex/actprice";
     }
 
+    @GetMapping("/forex/histprice")
+    public String histPriceForm(Model model) {
+        prepareHistPage(model, "EUR_USD", "D");
+        return "forex/histprice";
+    }
+
+    @PostMapping("/forex/histprice")
+    public String histPriceSubmit(
+            @RequestParam String instrument,
+            @RequestParam String granularity,
+            Model model) {
+        prepareHistPage(model, instrument, granularity);
+        if (!oandaProperties.isConfigured()) {
+            model.addAttribute("error", missingConfigMessage());
+            return "forex/histprice";
+        }
+        try {
+            model.addAttribute("candles", oandaClient.getHistoricalPrices(instrument, granularity));
+        } catch (Exception ex) {
+            model.addAttribute("error", ex.getMessage());
+        }
+        return "forex/histprice";
+    }
+
+    @GetMapping("/forex/open")
+    public String openForm(Model model) {
+        prepareOpenPage(model, "EUR_USD", 100);
+        return "forex/open";
+    }
+
+    @PostMapping("/forex/open")
+    public String openSubmit(
+            @RequestParam String instrument,
+            @RequestParam double units,
+            Model model) {
+        prepareOpenPage(model, instrument, units);
+        if (!oandaProperties.isConfigured()) {
+            model.addAttribute("error", missingConfigMessage());
+            return "forex/open";
+        }
+        if (units == 0) {
+            model.addAttribute("error", "Quantity must not be zero. Positive = Long, negative = Short.");
+            return "forex/open";
+        }
+        try {
+            model.addAttribute("result", oandaClient.openMarketOrder(instrument, units));
+            model.addAttribute("success", "Market order submitted.");
+        } catch (Exception ex) {
+            model.addAttribute("error", ex.getMessage());
+        }
+        return "forex/open";
+    }
+
     private void prepareInstrumentPage(Model model, String activeMenu, String instrument) {
         model.addAttribute("activeMenu", activeMenu);
         model.addAttribute("instruments", OandaClient.INSTRUMENTS);
         model.addAttribute("instrument", instrument);
+    }
+
+    private void prepareHistPage(Model model, String instrument, String granularity) {
+        prepareInstrumentPage(model, "forex-histprice", instrument);
+        model.addAttribute("granularities", OandaClient.GRANULARITIES);
+        model.addAttribute("granularity", granularity);
+    }
+
+    private void prepareOpenPage(Model model, String instrument, double units) {
+        prepareInstrumentPage(model, "forex-open", instrument);
+        model.addAttribute("units", units);
     }
 
     private String missingConfigMessage() {
