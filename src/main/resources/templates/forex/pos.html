@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::title}, ~{::main})}">
+<head>
+    <title>Forex-Pos | Neumann Tech Solutions</title>
+</head>
+<body>
+<main>
+    <div class="container">
+        <h1 class="section-title">Forex-Pos</h1>
+        <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+        <div class="card" th:if="${trades != null}">
+            <p th:if="${trades.isEmpty()}">No open trades.</p>
+            <table class="data" th:if="${!trades.isEmpty()}">
+                <thead>
+                <tr>
+                    <th>TradeId</th>
+                    <th>Instrument</th>
+                    <th>Price</th>
+                    <th>Current units</th>
+                    <th>Unrealized PL</th>
+                    <th>Open time</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="t : ${trades}">
+                    <td th:text="${t['id']}">1</td>
+                    <td th:text="${t['instrument']}">EUR_USD</td>
+                    <td th:text="${t['price']}">1.1</td>
+                    <td th:text="${t['currentUnits']}">100</td>
+                    <td th:text="${t['unrealizedPL']}">0</td>
+                    <td th:text="${t['openTime']}">time</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+</body>
+</html>

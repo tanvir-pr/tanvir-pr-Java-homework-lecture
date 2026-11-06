@@ -108,6 +108,49 @@ public class ForexController {
         return "forex/open";
     }
 
+    @GetMapping("/forex/pos")
+    public String positions(Model model) {
+        model.addAttribute("activeMenu", "forex-pos");
+        if (!oandaProperties.isConfigured()) {
+            model.addAttribute("error", missingConfigMessage());
+            return "forex/pos";
+        }
+        try {
+            model.addAttribute("trades", oandaClient.getOpenTrades());
+        } catch (Exception ex) {
+            model.addAttribute("error", ex.getMessage());
+        }
+        return "forex/pos";
+    }
+
+    @GetMapping("/forex/close")
+    public String closeForm(Model model) {
+        model.addAttribute("activeMenu", "forex-close");
+        model.addAttribute("tradeId", "");
+        return "forex/close";
+    }
+
+    @PostMapping("/forex/close")
+    public String closeSubmit(@RequestParam String tradeId, Model model) {
+        model.addAttribute("activeMenu", "forex-close");
+        model.addAttribute("tradeId", tradeId);
+        if (!oandaProperties.isConfigured()) {
+            model.addAttribute("error", missingConfigMessage());
+            return "forex/close";
+        }
+        if (tradeId == null || tradeId.isBlank()) {
+            model.addAttribute("error", "TradeId is required.");
+            return "forex/close";
+        }
+        try {
+            model.addAttribute("result", oandaClient.closeTrade(tradeId.trim()));
+            model.addAttribute("success", "Close request submitted for trade " + tradeId.trim());
+        } catch (Exception ex) {
+            model.addAttribute("error", ex.getMessage());
+        }
+        return "forex/close";
+    }
+
     private void prepareInstrumentPage(Model model, String activeMenu, String instrument) {
         model.addAttribute("activeMenu", activeMenu);
         model.addAttribute("instruments", OandaClient.INSTRUMENTS);

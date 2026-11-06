@@ -7,18 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MenuController {
 
-    @GetMapping("/forex/pos")
-    public String forexPos(Model model) {
-        return placeholder(model, "forex-pos", "Forex-Pos",
-                "Open positions will be listed in a table here.");
-    }
-
-    @GetMapping("/forex/close")
-    public String forexClose(Model model) {
-        return placeholder(model, "forex-close", "Forex-Close",
-                "Close a position by TradeId at market price.");
-    }
-
     @GetMapping("/test")
     public String testMenu(Model model) {
         return placeholder(model, "test", "Test",
