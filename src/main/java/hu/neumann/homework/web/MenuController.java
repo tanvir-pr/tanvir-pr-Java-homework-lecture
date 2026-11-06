@@ -7,18 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MenuController {
 
-    @GetMapping("/forex/account")
-    public String forexAccount(Model model) {
-        return placeholder(model, "forex-account", "Forex-account",
-                "Oanda account information will be shown here.");
-    }
-
-    @GetMapping("/forex/actprice")
-    public String forexActPrice(Model model) {
-        return placeholder(model, "forex-actprice", "Forex-ActPrice",
-                "Select an instrument to view the actual market price.");
-    }
-
     @GetMapping("/forex/histprice")
     public String forexHistPrice(Model model) {
         return placeholder(model, "forex-histprice", "Forex-HistPrice",

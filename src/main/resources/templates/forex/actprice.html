@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::title}, ~{::main})}">
+<head>
+    <title>Forex-ActPrice | Neumann Tech Solutions</title>
+</head>
+<body>
+<main>
+    <div class="container">
+        <h1 class="section-title">Forex-ActPrice</h1>
+
+        <div class="card">
+            <form method="post" th:action="@{/forex/actprice}">
+                <div class="form-row">
+                    <div class="field">
+                        <label for="instrument">Instrument</label>
+                        <select id="instrument" name="instrument" required>
+                            <option th:each="i : ${instruments}"
+                                    th:value="${i}"
+                                    th:text="${i}"
+                                    th:selected="${#strings.equals(i, instrument)}"></option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <button class="btn" type="submit">Get price</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+        <div class="card" th:if="${price != null}">
+            <table class="data">
+                <tbody>
+                <tr th:each="entry : ${price}">
+                    <th th:text="${entry.key}">key</th>
+                    <td th:text="${entry.value}">value</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+</body>
+</html>

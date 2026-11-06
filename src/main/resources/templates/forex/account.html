@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::title}, ~{::main})}">
+<head>
+    <title>Forex-account | Neumann Tech Solutions</title>
+</head>
+<body>
+<main>
+    <div class="container">
+        <h1 class="section-title">Forex-account</h1>
+        <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+        <div class="card" th:if="${account != null}">
+            <table class="data">
+                <tbody>
+                <tr th:each="entry : ${account}">
+                    <th th:text="${entry.key}">key</th>
+                    <td th:text="${entry.value}">value</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <p th:if="${account == null and error == null}">No account data loaded.</p>
+    </div>
+</main>
+</body>
+</html>
