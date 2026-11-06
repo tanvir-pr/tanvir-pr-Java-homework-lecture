@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<ul class="nav-menu" id="navMenu" th:fragment="mainNav(activeMenu)">
+    <li><a th:href="@{/}" th:classappend="${#strings.equals(activeMenu,'home')} ? ' active'">Home</a></li>
+    <li><a th:href="@{/soap}" th:classappend="${#strings.equals(activeMenu,'soap')} ? ' active'">SOAP</a></li>
+    <li class="nav-dropdown">
+        <span>Forex</span>
+        <ul class="nav-dropdown-menu">
+            <li><a th:href="@{/forex/account}" th:classappend="${#strings.equals(activeMenu,'forex-account')} ? ' active'">Forex-account</a></li>
+            <li><a th:href="@{/forex/actprice}" th:classappend="${#strings.equals(activeMenu,'forex-actprice')} ? ' active'">Forex-ActPrice</a></li>
+            <li><a th:href="@{/forex/histprice}" th:classappend="${#strings.equals(activeMenu,'forex-histprice')} ? ' active'">Forex-HistPrice</a></li>
+            <li><a th:href="@{/forex/open}" th:classappend="${#strings.equals(activeMenu,'forex-open')} ? ' active'">Forex-Open</a></li>
+            <li><a th:href="@{/forex/pos}" th:classappend="${#strings.equals(activeMenu,'forex-pos')} ? ' active'">Forex-Pos</a></li>
+            <li><a th:href="@{/forex/close}" th:classappend="${#strings.equals(activeMenu,'forex-close')} ? ' active'">Forex-Close</a></li>
+        </ul>
+    </li>
+    <li><a th:href="@{/test}" th:classappend="${#strings.equals(activeMenu,'test')} ? ' active'">Test</a></li>
+    <li><a th:href="@{/react}" th:classappend="${#strings.equals(activeMenu,'react')} ? ' active'">React</a></li>
+</ul>
+</body>
+</html>

@@ -14,9 +14,7 @@
     <div class="nav-inner">
         <a class="brand" th:href="@{/}">Neumann Tech Solutions</a>
         <button type="button" class="nav-toggle" id="navToggle" aria-label="Menu">Menu</button>
-        <ul class="nav-menu" id="navMenu">
-            <li><a th:href="@{/}" th:classappend="${#strings.equals(activeMenu,'home')} ? ' active'">Home</a></li>
-        </ul>
+        <div th:replace="~{fragments/nav :: mainNav(${activeMenu})}"></div>
     </div>
 </header>
 

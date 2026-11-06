@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::title}, ~{::main})}">
+<head>
+    <title th:text="${pageTitle}">Page</title>
+</head>
+<body>
+<main>
+    <div class="container">
+        <h1 class="section-title" th:text="${pageTitle}">Page</h1>
+        <div class="card">
+            <p th:text="${pageMessage}">Coming soon.</p>
+        </div>
+    </div>
+</main>
+</body>
+</html>
