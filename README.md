@@ -23,7 +23,8 @@ Copy `password.txt.example` to `password.txt` and add your Oanda practice API to
 
 ## Theme
 
-(To be documented after theme integration.)
+Free responsive HTML/CSS theme inspired by **HTML5 UP Massively** patterns
+(CC-style free template approach: https://html5up.net/). Integrated as Thymeleaf layout + `static/css/theme.css`.
 
 ## GitHub
 

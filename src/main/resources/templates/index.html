@@ -1,17 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::title}, ~{::main})}">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Neumann Tech Solutions</title>
+    <title>Neumann Tech Solutions | Home</title>
 </head>
 <body>
-<header>
-    <h1>Neumann Tech Solutions</h1>
-    <p>Spring Boot homework scaffold — theme and full menus come in the next steps.</p>
-</header>
-<footer>
-    <p>Student One / XXXXXX | Student Two / YYYYYY</p>
-</footer>
+<main th:with="activeMenu='home'">
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Neumann Tech Solutions</h1>
+            <p class="tagline">
+                Building reliable financial software, market data tools, and modern web platforms
+                for businesses that move with the market.
+            </p>
+            <a class="btn" href="#about">Discover our work</a>
+        </div>
+    </section>
+
+    <section class="container" id="about">
+        <h2 class="section-title">About the company</h2>
+        <p>
+            Neumann Tech Solutions is a student-built demo company for the Java Spring Boot lecture homework.
+            We specialize in browser-based desktop applications that combine live banking data, forex trading
+            tools, and clean responsive interfaces.
+        </p>
+        <p>
+            Our stack focuses on Java 25, Spring Boot, SOAP integrations, REST APIs, and data visualization
+            so decision makers can see rates and positions clearly.
+        </p>
+
+        <div class="grid-3">
+            <article class="feature">
+                <h3>Market data</h3>
+                <p>Hungarian National Bank exchange rates via SOAP, visualized with interactive charts.</p>
+            </article>
+            <article class="feature">
+                <h3>Forex trading</h3>
+                <p>Practice trading workflows with the Oanda API — prices, history, open and close positions.</p>
+            </article>
+            <article class="feature">
+                <h3>Modern delivery</h3>
+                <p>Responsive UI, automated tests, and React CRUD modules packaged as a single runnable JAR.</p>
+            </article>
+        </div>
+    </section>
+</main>
 </body>
 </html>
