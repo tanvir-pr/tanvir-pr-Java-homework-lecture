@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::title}, ~{::main})}">
+<head>
+    <title>Test | Neumann Tech Solutions</title>
+</head>
+<body>
+<main>
+    <div class="container">
+        <h1 class="section-title">Test — Four-operation calculator</h1>
+
+        <div class="card">
+            <form method="post" th:action="@{/test}">
+                <div class="form-row">
+                    <div class="field">
+                        <label for="a">Number A</label>
+                        <input type="number" step="any" id="a" name="a" th:value="${a}" required/>
+                    </div>
+                    <div class="field">
+                        <label for="b">Number B</label>
+                        <input type="number" step="any" id="b" name="b" th:value="${b}" required/>
+                    </div>
+                    <div class="field">
+                        <label for="operation">Operation</label>
+                        <select id="operation" name="operation" required>
+                            <option value="add" th:selected="${#strings.equals(operation,'add')}">Add (+)</option>
+                            <option value="subtract" th:selected="${#strings.equals(operation,'subtract')}">Subtract (-)</option>
+                            <option value="multiply" th:selected="${#strings.equals(operation,'multiply')}">Multiply (*)</option>
+                            <option value="divide" th:selected="${#strings.equals(operation,'divide')}">Divide (/)</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <button class="btn" type="submit">Calculate</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+        <div class="card" th:if="${result != null}">
+            <h2>Result</h2>
+            <p th:text="${#numbers.formatDecimal(result, 1, 4)}">0</p>
+        </div>
+    </div>
+</main>
+</body>
+</html>

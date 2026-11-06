@@ -7,12 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MenuController {
 
-    @GetMapping("/test")
-    public String testMenu(Model model) {
-        return placeholder(model, "test", "Test",
-                "Calculator-style form and automated tests will be added here.");
-    }
-
     @GetMapping("/react")
     public String reactMenu(Model model) {
         return placeholder(model, "react", "React",
