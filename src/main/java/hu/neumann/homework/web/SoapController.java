@@ -44,6 +44,8 @@ public class SoapController {
         try {
             List<ExchangeRate> rates = mnbSoapClient.getExchangeRates(startDate, endDate, currency);
             model.addAttribute("rates", rates);
+            model.addAttribute("chartLabels", rates.stream().map(r -> r.getDate().toString()).toList());
+            model.addAttribute("chartValues", rates.stream().map(ExchangeRate::getValue).toList());
             if (rates.isEmpty()) {
                 model.addAttribute("error", "No exchange rates returned for the selected period.");
             }
