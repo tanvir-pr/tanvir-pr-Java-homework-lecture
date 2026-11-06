@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::title}, ~{::main})}">
+<head>
+    <title>React CRUD | Neumann Tech Solutions</title>
+</head>
+<body>
+<main>
+    <div class="container">
+        <h1 class="section-title">React — Employee CRUD</h1>
+        <div class="card">
+            <p>React + Axios client (production build) against Spring REST API and H2 file database.</p>
+            <p>
+                <a class="btn" th:href="@{/react/index.html}" target="_blank" rel="noopener">Open React app</a>
+            </p>
+            <iframe th:src="@{/react/index.html}"
+                    title="React Employee CRUD"
+                    style="width:100%; min-height:720px; border:1px solid rgba(255,255,255,0.15); border-radius:4px; background:#111;">
+            </iframe>
+        </div>
+    </div>
+</main>
+</body>
+</html>
