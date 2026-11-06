@@ -47,5 +47,7 @@ https://github.com/tanvir-pr/tanvir-pr-Java-homework-lecture
 
 ## Team
 
-- tanvir-pr
-- tariqul71
+- TANVIR HASAN / C0FMUG (`tanvir-pr`)
+- Islam md Tariqul / WEP2KE (`tariqul71`)
+
+Company: **Astha Life**
