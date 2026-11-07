@@ -23,7 +23,8 @@ import java.util.regex.Pattern;
 @Service
 public class MnbSoapClient {
 
-    private static final String ENDPOINT = "https://www.mnb.hu/arfolyamok.asmx";
+    // MNB SOAP POST works on HTTP; HTTPS currently returns 404 for SOAP actions.
+    private static final String ENDPOINT = "http://www.mnb.hu/arfolyamok.asmx";
     private static final DateTimeFormatter DATE = DateTimeFormatter.ISO_LOCAL_DATE;
     private static final Pattern RESULT_PATTERN = Pattern.compile(
             "<(?:\\w+:)?GetExchangeRatesResult>([\\s\\S]*?)</(?:\\w+:)?GetExchangeRatesResult>",
@@ -32,7 +33,10 @@ public class MnbSoapClient {
             "<(?:\\w+:)?GetCurrenciesResult>([\\s\\S]*?)</(?:\\w+:)?GetCurrenciesResult>",
             Pattern.CASE_INSENSITIVE);
 
-    private final HttpClient httpClient = HttpClient.newHttpClient();
+    // Do not follow redirects: HTTP->HTTPS redirect would break SOAP POST with 404.
+    private final HttpClient httpClient = HttpClient.newBuilder()
+            .followRedirects(HttpClient.Redirect.NEVER)
+            .build();
 
     public List<String> getCurrencies() {
         String body = """
